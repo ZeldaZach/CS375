@@ -9,6 +9,7 @@ int main(int argv, char** args)
 	std::ofstream fileOutput;
 	std::vector<char> XAxis, YAxis;
 
+	/* Ensure proper file handling start */
 	if (argv != 4)
 	{
 		std::cout << "Usage: ./program1 <fileX> <fileY> <fileOutput>" << std::endl;
@@ -41,8 +42,10 @@ int main(int argv, char** args)
 		fileY.close();
 		exit(1);
 	}
+	/* Ensure proper file handling end */
 
-	// Populate the "DNA" vectors
+
+	/* Populate the X and Y vectors */
 	{
 		std::string line;
 		getline(fileX, line);
@@ -56,35 +59,100 @@ int main(int argv, char** args)
 		{
 			YAxis.push_back(line[i]);
 		}
+
+		fileX.close();
+		fileY.close();
 	}
 
-	std::vector<std::vector<int> > matrix(XAxis.size()+1, std::vector<int>(YAxis.size()+1));
-	
-	for (int x = 1; x < static_cast<int>(matrix.size()); x++)
+	// Value and Direction vectors (Size +1 because of the 0 length option)
+	std::vector<std::vector<int> > 	value_matrix(XAxis.size()+1, std::vector<int>(YAxis.size()+1));
+	std::vector<std::vector<char> > arrow_matrix(XAxis.size()+1, std::vector<char>(YAxis.size()+1));
+
+	// Insert the 0's and -'s for the 0 length of both X and Y
+	for (int i = 0; i < XAxis.size()+1; i++)
 	{
-		for (int y = 1; y < static_cast<int>(matrix.at(x).size()); y++)
+		value_matrix[i][0] = 0;
+		arrow_matrix[i][0] = '-';
+	}
+	for (int i = 0; i < YAxis.size()+1; i++)
+	{
+		value_matrix[0][i] = 0;
+		arrow_matrix[0][i] = '-';
+	}
+
+	// Populate the remainder of the matrices 
+	for (int x = 1; x < XAxis.size()+1; x++)
+	{
+		for (int y = 1; y < YAxis.size()+1; y++)
 		{
-			if (XAxis.at(x-1) == YAxis.at(y-1))
+			// Match = grab the diagonal ++
+			if (XAxis[x - 1] == YAxis[y - 1])
 			{
-				matrix.at(x).at(y) = matrix.at(x-1).at(y-1) + 1;
+				value_matrix[x][y] = value_matrix[x-1][y-1] + 1;
+				arrow_matrix[x][y] = 'D';
 			}
 			else
 			{
-				matrix.at(x).at(y) = std::max(matrix.at(x-1).at(y), matrix.at(x).at(y-1));
+				// No Match = largest of top or left
+				value_matrix[x][y] = std::max(value_matrix[x-1][y], value_matrix[x][y-1]);
+				if (value_matrix[x][y] == value_matrix[x-1][y])
+				{
+					arrow_matrix[x][y] = 'U';
+				}
+				else
+				{
+					arrow_matrix[x][y] = 'L';
+				}
 			}
 		}
 	}
 
-	for (unsigned int i = 0; i < matrix.size(); ++i)
+	// If Input Strings <= 10
+	if (value_matrix.size() <= 10)
 	{
-	    for (unsigned int j = 0; j < matrix.at(i).size(); ++j)
-	    {
-	        std::cout << matrix[i][j];
-	    }
-	    std::cout << std::endl;
+		int x = XAxis.size(), y = YAxis.size();
+		std::string sequence;
+
+		while (true)
+		{
+			if (arrow_matrix[x][y] == 'D')
+			{
+				sequence = XAxis[x - 1] + sequence;
+				x--;
+				y--;
+			}
+			else if (arrow_matrix[x][y] == 'U')
+			{
+				x--;
+			}
+			else if (arrow_matrix[x][y] == 'L')
+			{
+				y--;
+			}
+			else // Probably hit a '-'
+			{
+				break;
+			}
+		}
+
+		// Output the row of matrix lenLCS
+		for (int x = 0; x < XAxis.size()+1; x++)
+		{
+			for (int y = 0; y < YAxis.size()+1; y++)
+			{
+				fileOutput << value_matrix[x][y];
+			}
+			fileOutput << std::endl;
+		}
+		fileOutput << sequence << std::endl;
+		fileOutput << "Running Time: THETA(" << XAxis.size()*YAxis.size() << ")" << std::endl;
+	}
+	else // Else Input Strings > 10
+	{
+		fileOutput << "Maximum Length: " << value_matrix[XAxis.size()][YAxis.size()] << std::endl;
+		fileOutput << "Running Time: THETA(" << XAxis.size()*YAxis.size() << ")" << std::endl;
 	}
 
-	std::cout << "Max length is " << matrix.at(XAxis.size()).at(YAxis.size()) << std::endl;
-
-
+	fileOutput.close();
+	return 0;
 }
