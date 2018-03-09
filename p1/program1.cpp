@@ -2,12 +2,14 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <ctime>
 
 int main(int argv, char** args)
 {
 	std::ifstream fileX, fileY;
 	std::ofstream fileOutput;
 	std::vector<char> XAxis, YAxis;
+	clock_t t = clock();
 
 	/* Ensure proper file handling start */
 	if (argv != 4)
@@ -144,13 +146,20 @@ int main(int argv, char** args)
 			}
 			fileOutput << std::endl;
 		}
+		
+		// Stop the clock
+		t = clock() - t;
+		
 		fileOutput << sequence << std::endl;
-		fileOutput << "Running Time: THETA(" << XAxis.size()*YAxis.size() << ")" << std::endl;
+		fileOutput << "Running Time: " << static_cast<float>(t)/CLOCKS_PER_SEC << "sec" << std::endl;
 	}
 	else // Else Input Strings > 10
 	{
+		// Stop the clock
+		t = clock() - t;
+		
 		fileOutput << "Maximum Length: " << value_matrix[XAxis.size()][YAxis.size()] << std::endl;
-		fileOutput << "Running Time: THETA(" << XAxis.size()*YAxis.size() << ")" << std::endl;
+		fileOutput << "Running Time: " << static_cast<float>(t)/CLOCKS_PER_SEC << "sec" << std::endl;
 	}
 
 	fileOutput.close();
