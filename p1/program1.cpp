@@ -14,7 +14,7 @@ int main(int argv, char** args)
 	/* Ensure proper file handling start */
 	if (argv != 4)
 	{
-		std::cout << "Usage: ./program1 <fileX> <fileY> <fileOutput>" << std::endl;
+		std::cout << "Usage: " << args[0] << " <fileX> <fileY> <fileOutput>" << std::endl;
 		exit(1);
 	}
 
