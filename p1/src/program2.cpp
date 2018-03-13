@@ -1,12 +1,12 @@
+#include <ctime>
+#include <fstream>
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <vector>
-#include <ctime>
 
 int longestCommonSubsequence(std::vector<char> x_axis, std::vector<char> y_axis, int x_index, int y_index)
 {
-	if (x_index >= x_axis.size() || y_index >= y_axis.size())
+	if (x_index >= static_cast<int>(x_axis.size()) || y_index >= static_cast<int>(y_axis.size()))
 	{
 		return 0;
 	}
@@ -69,15 +69,15 @@ int main(int argv, char** args)
 	{
 		std::string line;
 		getline(fileX, line);
-		for (int i = 0; i < static_cast<int>(line.length()); ++i)
+		for (char i : line)
 		{
-			XAxis.push_back(line[i]);
+			XAxis.push_back(i);
 		}
 
 		getline(fileY, line);
-		for (int i = 0; i < static_cast<int>(line.length()); ++i)
+		for (char i : line)
 		{
-			YAxis.push_back(line[i]);
+			YAxis.push_back(i);
 		}
 
 		fileX.close();

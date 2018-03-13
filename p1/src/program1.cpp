@@ -1,8 +1,8 @@
+#include <ctime>
+#include <fstream>
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <vector>
-#include <ctime>
 
 int main(int argv, char** args)
 {
@@ -51,15 +51,15 @@ int main(int argv, char** args)
 	{
 		std::string line;
 		getline(fileX, line);
-		for (int i = 0; i < static_cast<int>(line.length()); ++i)
+		for (char i : line)
 		{
-			XAxis.push_back(line[i]);
+			XAxis.push_back(i);
 		}
 
 		getline(fileY, line);
-		for (int i = 0; i < static_cast<int>(line.length()); ++i)
+		for (char i : line)
 		{
-			YAxis.push_back(line[i]);
+			YAxis.push_back(i);
 		}
 
 		fileX.close();
@@ -71,21 +71,21 @@ int main(int argv, char** args)
 	std::vector<std::vector<char> > arrow_matrix(XAxis.size()+1, std::vector<char>(YAxis.size()+1));
 
 	// Insert the 0's and -'s for the 0 length of both X and Y
-	for (int i = 0; i < XAxis.size()+1; i++)
+	for (int i = 0; i < static_cast<int>(XAxis.size()+1); i++)
 	{
 		value_matrix[i][0] = 0;
 		arrow_matrix[i][0] = '-';
 	}
-	for (int i = 0; i < YAxis.size()+1; i++)
+	for (int i = 0; i < static_cast<int>(YAxis.size()+1); i++)
 	{
 		value_matrix[0][i] = 0;
 		arrow_matrix[0][i] = '-';
 	}
 
 	// Populate the remainder of the matrices 
-	for (int x = 1; x < XAxis.size()+1; x++)
+	for (int x = 1; x < static_cast<int>(XAxis.size()+1); x++)
 	{
-		for (int y = 1; y < YAxis.size()+1; y++)
+		for (int y = 1; y < static_cast<int>(YAxis.size()+1); y++)
 		{
 			// Match = grab the diagonal ++
 			if (XAxis[x - 1] == YAxis[y - 1])
@@ -112,7 +112,7 @@ int main(int argv, char** args)
 	// If Input Strings <= 10
 	if (value_matrix.size() <= 10)
 	{
-		int x = XAxis.size(), y = YAxis.size();
+		auto x = static_cast<int>(XAxis.size()), y = static_cast<int>(YAxis.size());
 		std::string sequence;
 
 		while (true)
@@ -138,9 +138,9 @@ int main(int argv, char** args)
 		}
 
 		// Output the row of matrix lenLCS
-		for (int x = 0; x < XAxis.size()+1; x++)
+		for (x = 0; x < static_cast<int>(XAxis.size()+1); x++)
 		{
-			for (int y = 0; y < YAxis.size()+1; y++)
+			for (y = 0; y < static_cast<int>(YAxis.size()+1); y++)
 			{
 				fileOutput << value_matrix[x][y];
 			}
