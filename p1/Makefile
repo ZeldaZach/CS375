@@ -1,4 +1,4 @@
-FLAGS = -std=c++14 -Wall -Wextra -g
+FLAGS = -std=c++14 -Wall -Wextra -pedantic -g
 
 all: p1 p2 p3
 
