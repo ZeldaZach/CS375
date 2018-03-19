@@ -110,10 +110,11 @@ int main(int argv, char** args)
 		}
 	}
 
+	uint32_t max_len = p3.longestCommonSubsequence(0, 0);
 	// Stop the clock
 	t = clock() - t;
 	
-	fileOutput << "Maximum Length: " << p3.longestCommonSubsequence(0, 0) << std::endl;
+	fileOutput << "Maximum Length: " << max_len << std::endl;
 	fileOutput << "Running Time: " << static_cast<float>(t)/CLOCKS_PER_SEC << "sec" << std::endl;
 
 	fileOutput.close();

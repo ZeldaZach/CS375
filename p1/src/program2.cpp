@@ -85,9 +85,10 @@ int main(int argv, char** args)
 	}
 
 	// Stop the clock
+	uint32_t max_len = longestCommonSubsequence(XAxis, YAxis, 0, 0);
 	t = clock() - t;
-	
-	fileOutput << "Maximum Length: " << longestCommonSubsequence(XAxis, YAxis, 0, 0) << std::endl;
+
+	fileOutput << "Maximum Length: " << max_len << std::endl;
 	fileOutput << "Running Time: " << static_cast<float>(t)/CLOCKS_PER_SEC << "sec" << std::endl;
 
 	fileOutput.close();

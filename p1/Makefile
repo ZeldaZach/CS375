@@ -17,8 +17,6 @@ debug_run: p1 p2 p3
 	./program1 ./filex.txt ./filey.txt ./output1.txt
 	./program2 ./filex.txt ./filey.txt ./output2.txt
 	./program3 ./filex.txt ./filey.txt ./output3.txt
-
-debug_outputs: run
 	cat ./output1.txt
 	cat ./output2.txt
 	cat ./output3.txt
