@@ -7,7 +7,8 @@ float - algorithm execution time
 
 Data structures used include one vector matrix (vector<vector<T> >) that contain the path data.
 
-Computation time of this program is O(2^(X.length * Y.length)) => O(2^(nm))
+Computation time of this program is O(2^(X.length + Y.length)) => 
+O(2^(n+m))
 
 Compile:
 $ make p2
