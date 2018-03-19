@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+/**
+ * Class used to share data with methods
+ */
 struct Program3
 {
 	int longestCommonSubsequence(int, int);
@@ -11,6 +14,11 @@ struct Program3
 	std::vector<std::vector<int> > value_matrix;
 };
 
+/**
+ * Calculate the longest path by checking value by value
+ * If there's a match, increment both counters (we had a match)
+ * Otherwise check if there's a match on (i,j+1) and (i+1, j)
+ */
 int Program3::longestCommonSubsequence(int x_index, int y_index)
 {
 	if (value_matrix[x_index][y_index] == -1)

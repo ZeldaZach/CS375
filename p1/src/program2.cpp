@@ -4,6 +4,12 @@
 #include <string>
 #include <vector>
 
+/**
+ * There's no mem here, so this will expand out recursively
+ * If a match is found, increment both counters and use the new sub-sequences
+ * Otherwise we will check both sub-sequences to see if there's a match
+ * This method is bad because it will be high time complexity
+ */
 int longestCommonSubsequence(std::vector<char> x_axis, std::vector<char> y_axis, int x_index, int y_index)
 {
 	if (x_index >= static_cast<int>(x_axis.size()) || y_index >= static_cast<int>(y_axis.size()))

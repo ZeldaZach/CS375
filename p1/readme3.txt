@@ -5,6 +5,12 @@ fileOutput:
 uint - longest length
 float - algorithm execution time
 
-Operations:
+Data structures used include one vector matrix (vector<vector<T> >) that contain the path data.
+
+Computation time of this program is O(X.length * Y.length) => O(nm)
+
+Compile:
 $ make p3
+
+Run:
 $ ./program3 <fileX> <fileY> <fileOutput>
