@@ -2,7 +2,7 @@ FLAGS = -std=c++14 -Wall -Wextra -pedantic
 
 all: p1 p2 p3
 
-.PHONY: p1 p2 p3 debug_run debug_outputs clean
+.PHONY: p1 p2 p3 debug_run clean
 
 p1: src/program1.cpp
 	g++ src/program1.cpp -o program1 $(FLAGS)
