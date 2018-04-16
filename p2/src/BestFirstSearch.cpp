@@ -9,6 +9,7 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
+#include <algorithm>
 #include <iomanip>
 
 BestFirstSearch::BestFirstSearch(char *args[])
@@ -105,7 +106,7 @@ bool BestFirstSearch::readInputs(char *args[])
 
 void BestFirstSearch::sortItemsByWeight()
 {
-    sort(itemStash.begin(), itemStash.end());
+    std::sort(itemStash.begin(), itemStash.end());
 }
 
 void BestFirstSearch::print()
