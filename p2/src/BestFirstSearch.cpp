@@ -30,22 +30,22 @@ void BestFirstSearch::calculateOptimalKnapsack()
     createKnapsackMatrix();
     print();
 
-    for (int i = 1; i < totalEntries; i++)
+    for (int i = 0; i < totalEntries; i++)
     {
         for (int c = 0; c < maxCapacity; c++)
         {
-            int weight = itemStash.at(i-1).first, profit = itemStash.at(i-1).second;
+            int weight = itemStash.at(i).first, profit = itemStash.at(i).second;
 
             if (weight <= c)
             {
-                knapsackMatrix.at(i).at(c) = std::max(
-                        knapsackMatrix.at(i-1).at(c),
-                        knapsackMatrix.at(i-1).at(c-weight) + profit
+                knapsackMatrix.at(i+1).at(c) = std::max(
+                        knapsackMatrix.at(i).at(c),
+                        knapsackMatrix.at(i).at(c-weight) + profit
                     );
             }
             else
             {
-                knapsackMatrix.at(i).at(c) = knapsackMatrix.at(i-1).at(c);
+                knapsackMatrix.at(i+1).at(c) = knapsackMatrix.at(i).at(c);
             }
         }
     }
@@ -121,9 +121,9 @@ void BestFirstSearch::print()
     std::cout << "Capacity: " << maxCapacity << std::endl;
 
     std::cout << "Matrix: " << std::endl;
-    for (int i = 0; i < totalEntries+1; i++)
+    for (int i = 0; i < totalEntries; i++)
     {
-        for (int j = 0; j < maxCapacity+1; j++)
+        for (int j = 0; j < maxCapacity; j++)
         {
             std::cout << std::setw(4) << knapsackMatrix[i][j];
         }
