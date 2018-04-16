@@ -2,15 +2,13 @@
 // Created by Zachary Halpern on 4/15/18.
 //
 
-
-
 #include "BestFirstSearch.h"
-#include <iostream>
-#include <fstream>
-#include <cstring>
-#include <sstream>
 #include <algorithm>
+#include <cstring>
+#include <fstream>
 #include <iomanip>
+#include <iostream>
+#include <sstream>
 
 BestFirstSearch::BestFirstSearch(char *args[])
 {
@@ -21,6 +19,7 @@ BestFirstSearch::BestFirstSearch(char *args[])
 
     sortItemsByWeight();
     calculateOptimalKnapsack();
+    print();
 
 }
 
@@ -28,7 +27,6 @@ void BestFirstSearch::calculateOptimalKnapsack()
 {
     // Zero out matrix
     createKnapsackMatrix();
-    print();
 
     for (int i = 0; i < totalEntries; i++)
     {
@@ -56,9 +54,9 @@ void BestFirstSearch::createKnapsackMatrix()
     // Matrix is now maxCapacity x totalEntries in size
     // Also zero'd out
     knapsackMatrix.resize(totalEntries+1);
-    for (int i = 0; i < totalEntries; i++)
+    for (int i = 0; i < totalEntries+1; i++)
     {
-        knapsackMatrix[i].resize(maxCapacity+1);
+        knapsackMatrix[i].resize(maxCapacity);
         std::fill(knapsackMatrix[i].begin(), knapsackMatrix[i].end(), 0);
     }
 }
@@ -121,7 +119,7 @@ void BestFirstSearch::print()
     std::cout << "Capacity: " << maxCapacity << std::endl;
 
     std::cout << "Matrix: " << std::endl;
-    for (int i = 0; i < totalEntries; i++)
+    for (int i = 0; i < totalEntries+1; i++)
     {
         for (int j = 0; j < maxCapacity; j++)
         {
