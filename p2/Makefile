@@ -5,7 +5,7 @@ all: p1
 .PHONY: p1 clean
 
 p1: src/BestFirstTreeSearch.cpp src/main.cpp
-	g++ src/BestFirstTreeSearch.cpp src/main.cpp -o BestFirstTreeSearch $(FLAGS)
+	g++ src/BestFirstTreeSearch.cpp src/main.cpp -o BestFirstSearch $(FLAGS)
 
 clean:
-	rm -rf BestFirstTreeSearch *.dSYM
+	rm -rf BestFirstSearch *.dSYM
