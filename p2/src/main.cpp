@@ -3,8 +3,7 @@
 //
 
 #include <iostream>
-#include <ctime>
-#include "BestFirstSearch.h"
+#include "BestFirstTreeSearch.h"
 
 int main(int argv, char** args)
 {
@@ -14,7 +13,7 @@ int main(int argv, char** args)
         exit(1);
     }
 
-    auto *BFS = new BestFirstSearch(args);
 
-    delete BFS;
+    BestFirstTreeSearch BFTS(args);
+
 }
