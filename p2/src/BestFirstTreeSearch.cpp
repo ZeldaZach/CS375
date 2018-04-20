@@ -11,7 +11,7 @@
 BestFirstTreeSearch::BestFirstTreeSearch(char *args[]) : best_value(0), nodes(0), leaf_nodes(0), best_add(0), nodes_in_solution(0)
 {
     readInputs(args);
-    solutions.push({includes, 0, 0, knapsack_fractional(max_capacity, 0, 0, 0), 0});
+    solutions.push({includes, 0, 0, knapsack_fractional(0, 0, 0), 0});
 
 
     while (!solutions.empty())
@@ -34,8 +34,8 @@ BestFirstTreeSearch::BestFirstTreeSearch(char *args[]) : best_value(0), nodes(0)
                 int combined_weight = current.c_weight + oitem.weight;
                 int combined_profit = current.c_value + oitem.profit;
 
-                int add_item = knapsack_fractional(max_capacity, current.c_element+1, combined_weight, combined_profit);
-                int dont_add = knapsack_fractional(max_capacity, current.c_element+1, current.c_weight, current.c_value);
+                int add_item = knapsack_fractional(current.c_element+1, combined_weight, combined_profit);
+                int dont_add = knapsack_fractional(current.c_element+1, current.c_weight, current.c_value);
 
                 if (add_item >= best_value)
                 {
@@ -151,19 +151,19 @@ bool BestFirstTreeSearch::readInputs(char *args[])
     return true;
 }
 
-int BestFirstTreeSearch::knapsack_fractional(int cost, int i, int p_weight, int p_profit)
+int BestFirstTreeSearch::knapsack_fractional(int i, int p_weight, int p_profit)
 {
-    while (p_weight != cost && i < total_entries)
+    while (p_weight != max_capacity && i < total_entries)
     {
-        if ((p_weight + items.at(i).weight) < cost)
+        if ((p_weight + items.at(i).weight) < max_capacity)
         {
             p_weight += items.at(i).weight;
             p_profit += items.at(i).profit;
         }
         else
         {
-            float remainder = (cost - p_weight);
-            p_weight = cost;
+            float remainder = (max_capacity - p_weight);
+            p_weight = max_capacity;
             p_profit += static_cast<int>(items.at(i).p_to_w_ratio * remainder);
         }
 

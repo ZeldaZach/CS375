@@ -51,7 +51,7 @@ class BestFirstTreeSearch
 
         bool readInputs(char *args[]);
         bool writeOutputs(char *args[]);
-        int knapsack_fractional(int, int, int, int);
+        int knapsack_fractional(int, int, int);
 
         std::vector<Item> items;
         std::priority_queue<Answer> solutions;
